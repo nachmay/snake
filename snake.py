@@ -16,6 +16,13 @@ class Snake:
         self.head = self.snake_body[-1]
         self.tail = self.snake_body[0]
         self.direction = U
+        # for i in self.snake_body:
+        #     x, y = i
+        #     gd.draw_cell(x, y, "Black")
+
+    # def paint(self, gd):
+
+
 
 
     def move_snake(self):
@@ -51,13 +58,13 @@ class Snake:
             return False
         return True
 
-    def bomb_or_blast_collition(self, bomb_location, blast_cells, drew_cell):
+    def bomb_or_blast_collition(self, bomb_location, blast_cells, gd):
         x, y = self.head
         if self.head == bomb_location:
-            drew_cell(x, y, "red")
+            gd.draw_cell(x, y, "red")
             return False
         if self.head in blast_cells:
-            drew_cell(x, y, "orange")
+            gd.draw_cell(x, y, "orange")
             return False
         return True
 
