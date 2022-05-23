@@ -12,3 +12,5 @@ def main_loop(gd: GameDisplay) -> None:
             x += 1
         gd.draw_cell(x, y, "red")
         gd.end_round()
+
+
