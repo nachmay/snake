@@ -6,3 +6,10 @@ class Apple:
         x, y, score = get_random_apple_data()
         self.score = score
         self.location = (x, y)
+
+    def get_apple_location(self):
+        return self.location
+
+
+
+
