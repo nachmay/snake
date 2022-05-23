@@ -8,4 +8,4 @@ class Bomb:
         self.time = time
 
     def blast_cells(self):
-
+        pass
