@@ -5,7 +5,7 @@ class Apple:
     def __init__(self):
         x, y, score = get_random_apple_data()
         self.score = score
-        self.location = (x, y)
+        self.location = [(x, y)]
         self.x = x
         self.y = y
 

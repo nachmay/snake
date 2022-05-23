@@ -37,6 +37,20 @@ class Snake:
             self.snake_body.append((x - 1, y))
         self.snake_body.pop(0)
 
+    def move_without_pop(self, counter):
+        x, y = self.snake_body[-1]
+        if self.direction == U:
+            self.snake_body.append((x, y + 1))
+        if self.direction == D:
+            self.snake_body.append((x, y - 1))
+        if self.direction == R:
+            self.snake_body.append((x + 1, y))
+        if self.direction == L:
+            self.snake_body.append((x - 1, y))
+        counter -= 1
+
+
+
     def change_direction(self, key_clicked):
         if (key_clicked == 'Left') and self.direction != R:
             self.direction = L
@@ -73,3 +87,12 @@ class Snake:
             return True
 
 
+    def get_snake_body(self):
+        return self.snake_body
+
+# s = Snake()
+# s.get_snake_body()
+# print(s.snake_body[-1])
+# x, y = s.snake_body[-1]
+# print(x)
+# print(y)

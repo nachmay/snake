@@ -4,7 +4,7 @@ class Bomb:
     def __init__(self):
         x, y, radius, time = get_random_bomb_data()
         self.radius = radius
-        self.location = (x, y)
+        self.location = [(x, y)]
         self.x = x
         self.y = y
         self.time = time
@@ -26,6 +26,7 @@ class Bomb:
 
 
 # b = Bomb()
+# print(b.location)
 # print("x = ", b.x, "y = ", b.y, "radius = ", b.radius)
 # b.blast_cells()
 # print(b.blast)
