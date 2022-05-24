@@ -24,6 +24,8 @@ def get_random_bomb_data() -> Tuple[int, int, int, int]:
     """
     x = random.randint(0, WIDTH - 1)
     y = random.randint(0, HEIGHT - 1)
+    # x = 38
+    # y = 15
     radius = random.randint(2, 5)
     time = random.randint(20, 30)
 

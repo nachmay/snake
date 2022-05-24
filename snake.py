@@ -1,98 +1,83 @@
-from game_display import *
 from game_parameters import *
-from bomb import Bomb
-from apple import Apple
 
-U = "up"
-D = "down"
-R = "right"
-L = "left"
+UP = "up"
+DOWN = "down"
+RIGHT = "right"
+LEFT = "left"
+
+
+K_LEFT = "Left"
+K_RIGHT = 'Right'
+K_UP = 'Up'
+K_DOWN = 'Down'
 
 
 class Snake:
     def __init__(self):
         self.snake_body = [((WIDTH // 2), (HEIGHT // 2) - 2), ((WIDTH // 2), (HEIGHT // 2) - 1),
                            ((WIDTH // 2), (HEIGHT // 2))]
-        self.head = self.snake_body[-1]
-        self.tail = self.snake_body[0]
-        self.direction = U
-        # for i in self.snake_body:
-        #     x, y = i
-        #     gd.draw_cell(x, y, "Black")
-
-    # def paint(self, gd):
-
-
-
+        self.direction = UP
 
     def move_snake(self):
         x, y = self.snake_body[-1]
-        if self.direction == U:
+        if self.direction == UP:
             self.snake_body.append((x, y + 1))
-        if self.direction == D:
+        if self.direction == DOWN:
             self.snake_body.append((x, y - 1))
-        if self.direction == R:
+        if self.direction == RIGHT:
             self.snake_body.append((x + 1, y))
-        if self.direction == L:
+        if self.direction == LEFT:
             self.snake_body.append((x - 1, y))
         self.snake_body.pop(0)
 
     def move_without_pop(self, counter):
         x, y = self.snake_body[-1]
-        if self.direction == U:
+        if self.direction == UP:
             self.snake_body.append((x, y + 1))
-        if self.direction == D:
+        if self.direction == DOWN:
             self.snake_body.append((x, y - 1))
-        if self.direction == R:
+        if self.direction == RIGHT:
             self.snake_body.append((x + 1, y))
-        if self.direction == L:
+        if self.direction == LEFT:
             self.snake_body.append((x - 1, y))
         counter -= 1
 
-
-
     def change_direction(self, key_clicked):
-        if (key_clicked == 'Left') and self.direction != R:
-            self.direction = L
-        elif (key_clicked == 'Right') and self.direction != L:
-            self.direction = R
-        elif (key_clicked == 'up') and self.direction != D:
-            self.direction = U
-        elif (key_clicked == 'down') and self.direction != U:
-            self.direction = R
+        if (key_clicked == K_LEFT) and self.direction != RIGHT:
+            self.direction = LEFT
+        elif (key_clicked == K_RIGHT) and self.direction != LEFT:
+            self.direction = RIGHT
+        elif (key_clicked == K_UP) and self.direction != DOWN:
+            self.direction = UP
+        elif (key_clicked == K_DOWN) and self.direction != UP:
+            self.direction = DOWN
 
     def self_collition(self):
-        if self.head in self.snake_body[:-1]:
+        if self.snake_body[-1] in self.snake_body[:-1]:
             return False
         return True
 
     def screen_edge(self):
-        x, y = self.head
-        if x < 0 or x > WIDTH or y < 0 or y > HEIGHT:
+        x, y = self.snake_body[-1]
+        if x < 0 or x > WIDTH-1 or y < 0 or y > HEIGHT-1:
             return False
         return True
 
-    def bomb_or_blast_collition(self, bomb_location, blast_cells, gd):
-        x, y = self.head
-        if self.head == bomb_location:
-            gd.draw_cell(x, y, "red")
-            return False
-        if self.head in blast_cells:
-            gd.draw_cell(x, y, "orange")
+    def blast_collition(self, blast_cells, gd):
+        for i in self.snake_body:
+            if i in blast_cells:
+                x, y = i
+                gd.draw_cell(x, y, "orange")
+                return False
+        return True
+
+    def bomb_colition(self, bomb_location):
+        if self.snake_body[-1] == bomb_location:
             return False
         return True
 
     def apple_eating(self, apple_location):
-        if self.head == apple_location:
+        if self.snake_body[-1] == apple_location:
             return True
 
 
-    def get_snake_body(self):
-        return self.snake_body
-
-# s = Snake()
-# s.get_snake_body()
-# print(s.snake_body[-1])
-# x, y = s.snake_body[-1]
-# print(x)
-# print(y)
