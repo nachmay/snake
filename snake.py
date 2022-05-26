@@ -73,6 +73,8 @@ class Snake:
 
     def bomb_colition(self, bomb_location):
         if self.snake_body[-1] == bomb_location:
+            # x, y = bomb_location
+            # gd.draw_cell(x, y, "red")
             return False
         return True
 
