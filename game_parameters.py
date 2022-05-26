@@ -22,10 +22,10 @@ def get_random_bomb_data() -> Tuple[int, int, int, int]:
     This method returns randomly drawn data for the bomb
     :return: (x,y,radius,time) Random location, bomb radius and time to explode
     """
-    x = random.randint(0, WIDTH - 1)
-    y = random.randint(0, HEIGHT - 1)
-    # x = 25
-    # y = 15
+    # x = random.randint(0, WIDTH - 1)
+    # y = random.randint(0, HEIGHT - 1)
+    x = 25
+    y = 15
     radius = random.randint(2, 5)
     time = random.randint(20, 30)
 

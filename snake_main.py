@@ -109,7 +109,8 @@ def main_loop(gd: GameDisplay) -> None:
     gd.show_score(score)
     blast_counter = 0
     blast_cells_to_paint = []
-    flag = True
+    blast_flag = True
+    bomb_flag = True
 
     while True:
 
@@ -135,25 +136,35 @@ def main_loop(gd: GameDisplay) -> None:
         playing_bomb.time -= 1
         blast_cells_to_paint, blast_counter, playing_bomb = blast_appearence(blast_cells_to_paint, blast_counter,
                                                                              occupied_coordinates, playing_bomb)
-        if not playing_snake.blast_collition(blast_cells_to_paint) or not playing_snake.bomb_colition(
-                playing_bomb.location):
+        if not playing_snake.blast_collition(blast_cells_to_paint):
             gd.end_round()
-            flag = False
+            blast_flag= False
+        if not playing_snake.bomb_colition(playing_bomb.location):
+            gd.end_round()
+            bomb_flag = False
+
         blast_on_apple(apple_lst, blast_cells_to_paint, occupied_coordinates)
         # paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         # gd.end_round()
         paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
-        if not flag:
-            paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
-            if not playing_snake.bomb_colition(playing_bomb.location):
-                x, y = playing_bomb.location
-                gd.draw_cell(x, y, "Red")
+        if not bomb_flag:
+
+            x, y = playing_bomb.location
+            gd.draw_cell(x, y, "Red")
+            gd.end_round()
+            return
+
+        if not blast_flag:
+            for i in playing_snake.snake_body:
+                if i in blast_cells_to_paint:
+                    x, y = i
+                    gd.draw_cell(x, y, "orange")
+                    break
                 # print("didnt?")
             #     print("blabla")
             #     x, y = playing_bomb.location
             #     gd.draw_cell(x, y, "red")
             gd.end_round()
             return
-
         gd.end_round()
 
