@@ -58,7 +58,6 @@ def blast_appearence(blast_cells_to_paint, blast_counter, occupied_coordinates, 
     if playing_bomb.time <= 0 and blast_counter <= playing_bomb.radius:
         if len(playing_bomb.blast_cells(blast_counter)) != len(playing_bomb.blast_cells_general(blast_counter)):
             blast_cells_to_paint = []
-            # flag_blast = False
             playing_bomb = create_new_bomb(occupied_coordinates)
             blast_counter = 0
         else:
