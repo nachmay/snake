@@ -112,7 +112,7 @@ def main_loop(gd: GameDisplay) -> None:
     flag = True
 
     while True:
-        paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
+
 
         gd.show_score(score)
         occupied_coordinates = playing_snake.snake_body + [playing_bomb.location] + playing_bomb.blast_cells(
@@ -142,6 +142,7 @@ def main_loop(gd: GameDisplay) -> None:
         blast_on_apple(apple_lst, blast_cells_to_paint, occupied_coordinates)
         # paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         # gd.end_round()
+        paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         if not flag:
             paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
             if not playing_snake.bomb_colition(playing_bomb.location):
