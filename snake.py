@@ -20,6 +20,7 @@ class Snake:
 
     def move_snake(self):
         x, y = self.snake_body[-1]
+        # if x > 0 and y > 0 and x < WIDTH -1 and y < HEIGHT-1:
         if self.direction == UP:
             self.snake_body.append((x, y + 1))
         if self.direction == DOWN:
