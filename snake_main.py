@@ -97,7 +97,10 @@ def main_loop(gd: GameDisplay) -> None:
     blast_counter = 0
     blast_cells_to_paint = []
     flag = True
+    paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
+    gd.end_round()
     while True:
+
         gd.show_score(score)
         occupied_coordinates = playing_snake.snake_body + [playing_bomb.location] + playing_bomb.blast_cells(
             blast_counter) + \
