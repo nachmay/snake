@@ -10,11 +10,16 @@ BLACK = "Black"
 ORANGE = "orange"
 
 
-def initializer():
+def initializer(gd ):
     playing_snake = Snake()
+    for i in range(len(playing_snake.snake_body)-1, -1, -1):
+        x, y = playing_snake.snake_body[i]
+        gd.draw_cell(x, y, BLACK)
     occupied_coordinates = []
     occupied_coordinates += playing_snake.snake_body
     playing_bomb = create_new_bomb(occupied_coordinates)
+    x, y = playing_bomb.location
+    gd.draw_cell(x, y, RED)
     occupied_coordinates += playing_bomb.location
     playing_apple1 = create_new_apple(occupied_coordinates)
     occupied_coordinates += playing_apple1.location
@@ -22,6 +27,11 @@ def initializer():
     occupied_coordinates += playing_apple2.location
     playing_apple3 = create_new_apple(occupied_coordinates)
     apple_lst = [playing_apple1, playing_apple2, playing_apple3]
+    apple_cells = list(map((lambda apple: apple.location), apple_lst))
+    for i in apple_cells:
+        x, y = i
+        gd.draw_cell(x, y, GREEN)
+    gd.end_round()
     return apple_lst, playing_bomb, playing_snake
 
 
@@ -75,32 +85,32 @@ def blast_appearence(blast_cells_to_paint, blast_counter, occupied_coordinates, 
 
 def paint(apple_lst, blast_cells, snake_cells, bomb_location, gd):
     apple_cells = list(map((lambda apple: apple.location), apple_lst))
+    for i in apple_cells:
+        x, y = i
+        gd.draw_cell(x, y, GREEN)
     for i in range(len(snake_cells)-1, -1, -1):
-        print("i = ", i)
         x, y = snake_cells[i]
         gd.draw_cell(x, y, BLACK)
     if bomb_location != ():
         x, y = bomb_location
         gd.draw_cell(x, y, RED)
-    for i in apple_cells:
-        x, y = i
-        gd.draw_cell(x, y, GREEN)
     for i in blast_cells:
         x, y = i
         gd.draw_cell(x, y, ORANGE)
-    if bomb_location == ():
-        return
+    # if bomb_location == ():
+    #     return
 
 
 
 def main_loop(gd: GameDisplay) -> None:
     score = 0
     count_when_eat = 0
-    apple_lst, playing_bomb, playing_snake = initializer()
+    apple_lst, playing_bomb, playing_snake = initializer(gd)
     gd.show_score(score)
     blast_counter = 0
     blast_cells_to_paint = []
     flag = True
+
     while True:
         paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
 
