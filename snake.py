@@ -45,6 +45,7 @@ class Snake:
     def change_direction(self, key_clicked):
         if (key_clicked == K_LEFT) and self.direction != RIGHT:
             self.direction = LEFT
+            # self.move_snake()
         elif (key_clicked == K_RIGHT) and self.direction != LEFT:
             self.direction = RIGHT
         elif (key_clicked == K_UP) and self.direction != DOWN:

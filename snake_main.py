@@ -10,16 +10,16 @@ BLACK = "Black"
 ORANGE = "orange"
 
 
-def initializer(gd ):
+def initializer(gd):
     playing_snake = Snake()
-    for i in range(len(playing_snake.snake_body)-1, -1, -1):
-        x, y = playing_snake.snake_body[i]
-        gd.draw_cell(x, y, BLACK)
+    # for i in range(len(playing_snake.snake_body)-1, -1, -1):
+    #     x, y = playing_snake.snake_body[i]
+    #     gd.draw_cell(x, y, BLACK)
     occupied_coordinates = []
     occupied_coordinates += playing_snake.snake_body
     playing_bomb = create_new_bomb(occupied_coordinates)
-    x, y = playing_bomb.location
-    gd.draw_cell(x, y, RED)
+    # x, y = playing_bomb.location
+    # gd.draw_cell(x, y, RED)
     occupied_coordinates += playing_bomb.location
     playing_apple1 = create_new_apple(occupied_coordinates)
     occupied_coordinates += playing_apple1.location
@@ -27,11 +27,11 @@ def initializer(gd ):
     occupied_coordinates += playing_apple2.location
     playing_apple3 = create_new_apple(occupied_coordinates)
     apple_lst = [playing_apple1, playing_apple2, playing_apple3]
-    apple_cells = list(map((lambda apple: apple.location), apple_lst))
-    for i in apple_cells:
-        x, y = i
-        gd.draw_cell(x, y, GREEN)
-    gd.end_round()
+    # apple_cells = list(map((lambda apple: apple.location), apple_lst))
+    # for i in apple_cells:
+    #     x, y = i
+    #     gd.draw_cell(x, y, GREEN)
+    # gd.end_round()
     return apple_lst, playing_bomb, playing_snake
 
 
@@ -111,24 +111,23 @@ def main_loop(gd: GameDisplay) -> None:
     blast_cells_to_paint = []
     blast_flag = True
     bomb_flag = True
-
+    apple_flag = True
+    paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
+    gd.end_round()
     while True:
-
-
+        key_clicked = gd.get_key_clicked()
+        playing_snake.change_direction(key_clicked)
         gd.show_score(score)
         occupied_coordinates = playing_snake.snake_body + [playing_bomb.location] + playing_bomb.blast_cells(
-            blast_counter) + \
-                               list(map((lambda apple: apple.location), apple_lst))
+            blast_counter) + list(map((lambda apple: apple.location), apple_lst))
         if count_when_eat > 0:
             playing_snake.move_without_pop(count_when_eat)
             count_when_eat -= 1
         else:
             playing_snake.move_snake()
         if len(occupied_coordinates) == HEIGHT * WIDTH:
-            flag = False
-        key_clicked = gd.get_key_clicked()
+            apple_flag = False
 
-        playing_snake.change_direction(key_clicked)
         if not playing_snake.self_collition() or not playing_snake.screen_edge():
             gd.end_round()
             return
@@ -142,28 +141,24 @@ def main_loop(gd: GameDisplay) -> None:
         if not playing_snake.bomb_colition(playing_bomb.location):
             gd.end_round()
             bomb_flag = False
-
         blast_on_apple(apple_lst, blast_cells_to_paint, occupied_coordinates)
         # paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         # gd.end_round()
         paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         if not bomb_flag:
-
             x, y = playing_bomb.location
             gd.draw_cell(x, y, "Red")
             gd.end_round()
             return
-
         if not blast_flag:
             for i in playing_snake.snake_body:
                 if i in blast_cells_to_paint:
                     x, y = i
                     gd.draw_cell(x, y, "orange")
                     break
-                # print("didnt?")
-            #     print("blabla")
-            #     x, y = playing_bomb.location
-            #     gd.draw_cell(x, y, "red")
+            gd.end_round()
+            return
+        if not apple_flag:
             gd.end_round()
             return
         gd.end_round()
