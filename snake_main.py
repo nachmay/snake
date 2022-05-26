@@ -75,19 +75,19 @@ def blast_appearence(blast_cells_to_paint, blast_counter, occupied_coordinates, 
 
 def paint(apple_lst, blast_cells, snake_cells, bomb_location, gd):
     apple_cells = list(map((lambda apple: apple.location), apple_lst))
-    for i in apple_cells:
-        x, y = i
-        gd.draw_cell(x, y, GREEN)
     for i in snake_cells:
         x, y = i
         gd.draw_cell(x, y, BLACK)
+    x, y = bomb_location
+    gd.draw_cell(x, y, RED)
+    for i in apple_cells:
+        x, y = i
+        gd.draw_cell(x, y, GREEN)
     for i in blast_cells:
         x, y = i
         gd.draw_cell(x, y, ORANGE)
     if bomb_location == ():
         return
-    x, y = bomb_location
-    gd.draw_cell(x, y, RED)
 
 
 
