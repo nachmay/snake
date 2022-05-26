@@ -63,11 +63,11 @@ class Snake:
             return False
         return True
 
-    def blast_collition(self, blast_cells, gd):
+    def blast_collition(self, blast_cells):
         for i in self.snake_body:
             if i in blast_cells:
-                x, y = i
-                gd.draw_cell(x, y, "orange")
+            #     x, y = i
+            #     gd.draw_cell(x, y, "orange")
                 return False
         return True
 

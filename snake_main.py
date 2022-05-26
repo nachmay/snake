@@ -55,12 +55,14 @@ def blast_on_apple(apple_lst, blast_cells_to_paint, occupied_coordinates):
 
 
 def blast_appearence(blast_cells_to_paint, blast_counter, occupied_coordinates, playing_bomb):
+    # playing_bomb_loc_to_paint = playing_bomb.location
     if playing_bomb.time <= 0 and blast_counter <= playing_bomb.radius:
         if len(playing_bomb.blast_cells(blast_counter)) != len(playing_bomb.blast_cells_general(blast_counter)):
             blast_cells_to_paint = []
             playing_bomb = create_new_bomb(occupied_coordinates)
             blast_counter = 0
         else:
+            # playing_bomb_loc_to_paint = ()
             playing_bomb.location = ()
             blast_cells_to_paint = playing_bomb.blast_cells(blast_counter)
             blast_counter += 1
@@ -76,16 +78,17 @@ def paint(apple_lst, blast_cells, snake_cells, bomb_location, gd):
     for i in apple_cells:
         x, y = i
         gd.draw_cell(x, y, GREEN)
-    for i in blast_cells:
-        x, y = i
-        gd.draw_cell(x, y, ORANGE)
     for i in snake_cells:
         x, y = i
         gd.draw_cell(x, y, BLACK)
+    for i in blast_cells:
+        x, y = i
+        gd.draw_cell(x, y, ORANGE)
     if bomb_location == ():
         return
     x, y = bomb_location
     gd.draw_cell(x, y, RED)
+
 
 
 def main_loop(gd: GameDisplay) -> None:
@@ -98,7 +101,7 @@ def main_loop(gd: GameDisplay) -> None:
     flag = True
     while True:
         paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
-        gd.end_round()
+
         gd.show_score(score)
         occupied_coordinates = playing_snake.snake_body + [playing_bomb.location] + playing_bomb.blast_cells(
             blast_counter) + \
@@ -120,18 +123,24 @@ def main_loop(gd: GameDisplay) -> None:
         playing_bomb.time -= 1
         blast_cells_to_paint, blast_counter, playing_bomb = blast_appearence(blast_cells_to_paint, blast_counter,
                                                                              occupied_coordinates, playing_bomb)
-        if not playing_snake.blast_collition(blast_cells_to_paint, gd) or not playing_snake.bomb_colition(
+        if not playing_snake.blast_collition(blast_cells_to_paint) or not playing_snake.bomb_colition(
                 playing_bomb.location):
+            gd.end_round()
             flag = False
         blast_on_apple(apple_lst, blast_cells_to_paint, occupied_coordinates)
         # paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
         # gd.end_round()
         if not flag:
             paint(apple_lst, blast_cells_to_paint, playing_snake.snake_body, playing_bomb.location, gd)
-            # if not playing_snake.bomb_colition(playing_bomb.location):
+            if not playing_snake.bomb_colition(playing_bomb.location):
+                x, y = playing_bomb.location
+                gd.draw_cell(x, y, "Red")
+                # print("didnt?")
             #     print("blabla")
             #     x, y = playing_bomb.location
             #     gd.draw_cell(x, y, "red")
-
             gd.end_round()
             return
+
+        gd.end_round()
+
