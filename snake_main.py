@@ -3,10 +3,6 @@ from game_display import GameDisplay
 from game import Game
 from snake import Snake
 
-GREEN = "green"
-RED = "red"
-BLACK = "black"
-ORANGE = "orange"
 
 def main_loop(gd: GameDisplay) -> None:
     snake_game = Game(Snake())
