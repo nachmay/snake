@@ -20,7 +20,6 @@ class Snake:
 
     def move_snake(self):
         x, y = self.snake_body[-1]
-        # if x > 0 and y > 0 and x < WIDTH -1 and y < HEIGHT-1:
         if self.direction == UP:
             self.snake_body.append((x, y + 1))
         if self.direction == DOWN:
@@ -46,7 +45,6 @@ class Snake:
     def change_direction(self, key_clicked):
         if (key_clicked == K_LEFT) and self.direction != RIGHT:
             self.direction = LEFT
-            # self.move_snake()
         elif (key_clicked == K_RIGHT) and self.direction != LEFT:
             self.direction = RIGHT
         elif (key_clicked == K_UP) and self.direction != DOWN:
@@ -68,11 +66,5 @@ class Snake:
 
 
 
-
-
-
-    # def apple_eating(self, apple_location):
-    #     if self.snake_body[-1] == apple_location:
-    #         return True
 
 

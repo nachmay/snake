@@ -48,7 +48,7 @@ class Game:
             if apple_i.location not in self.occupied_coordinates:
                 self.occupied_coordinates += [apple_i.location]
                 return apple_i
-    # todo to remove the prev apple fro oocupied coordinates
+
 
     def new_bomb(self):
         while True:
@@ -132,21 +132,6 @@ class Game:
             if self.snake.snake_body[i] in self.blast_cells:
                 return False
         return True
-
-    # def blast_collition_on_head(self, head, blast_cells):
-    #     x, y = head
-    #     print("(x, y+1) = ", (x, y+1))
-    #     if self.snake.direction == UP and (x, y+1) in blast_cells:
-    #         print("(x, y+1) = ", (x, y+1))
-    #         return False
-    #     if self.snake.direction == DOWN and (x, y-1) in blast_cells:
-    #         return False
-    #     if self.snake.direction == LEFT and (x-1, y) in blast_cells:
-    #         return False
-    #     if self.snake.direction == RED and (x+1, y) in blast_cells:
-    #         return False
-    #     return True
-    #
 
 
 
