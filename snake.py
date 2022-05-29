@@ -65,23 +65,14 @@ class Snake:
             return False
         return True
 
-    def blast_collition(self, blast_cells):
-        for i in self.snake_body:
-            if i in blast_cells:
-            #     x, y = i
-            #     gd.draw_cell(x, y, "orange")
-                return False
-        return True
 
-    def bomb_colition(self, bomb_location):
-        if self.snake_body[-1] == bomb_location:
-            # x, y = bomb_location
-            # gd.draw_cell(x, y, "red")
-            return False
-        return True
 
-    def apple_eating(self, apple_location):
-        if self.snake_body[-1] == apple_location:
-            return True
+
+
+
+
+    # def apple_eating(self, apple_location):
+    #     if self.snake_body[-1] == apple_location:
+    #         return True
 
 

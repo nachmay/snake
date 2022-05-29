@@ -12,8 +12,8 @@ def get_random_apple_data() -> Tuple[int, int, int]:
     """
     x = random.randint(0, WIDTH - 1)
     y = random.randint(0, HEIGHT - 1)
-    score = random.randint(1, 5)
-
+    # score = random.randint(1, 5)
+    score = 5
     return x, y, score
 
 
@@ -24,9 +24,10 @@ def get_random_bomb_data() -> Tuple[int, int, int, int]:
     """
     # x = random.randint(0, WIDTH - 1)
     # y = random.randint(0, HEIGHT - 1)
-    x = 37
-    y = 15
-    radius = random.randint(2, 5)
-    time = random.randint(20, 30)
-
+    x = 20
+    y = 23
+    # radius = random.randint(2, 5)
+    radius = 1
+    # time = random.randint(20, 30)
+    time = 5
     return x, y, radius, time
